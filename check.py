@@ -118,4 +118,33 @@ def memberdelete():
     cursor1.close()
     print("book deleted")
 
+def membermodify():
+    import mysql.connector        # Import MySQL connector
+    con1 = mysql.connector.connect(host='localhost', database='world', user='root', password='tiger')                     # Open a connection to a database
+    cursor1 = con1.cursor()           #Create a cursor object#Execute SQL query to insert records in the table newitems
+    mno=input("Enter the member number you want to modify")    
+    print("Enter the following information")    
+    mname=input("Enter member name:")
+    mbno=" "  
+    mstat="N"
 
+cursor1.execute("update member1 set membername=%s, booknum=%s, memstatus=%s where memberno=%s",(mname,mbno,mstat,mno))
+con1.commit()     # Stores the data permanently in the table
+con1.close()                                #Close connection object
+cursor1.close()#Close cursor object
+print("book modified")
+def memberdisp():
+    import mysql.connector        # Import MySQL connector
+    con1 = mysql.connector.connect(host='localhost', database='world', user='root', password='tiger')                     # Open a connection to a database
+    cursor1 = con1.cursor()           #Create a cursor object
+    cursor1.execute ("select * from member1;")  #Execute SQL query to create a table# fetch all rows of a result set and store in rs as a list of tuples
+    rs = cursor1.fetchall()
+    print("\n\n\n########################## BOOK DETAILS #############################")
+    print("%10s"%"MEMBER NO.","%20s"%"NAME","%20s"%"BOOK NUMBER","%15s"%"STATUS")
+    for row in rs:                            # for loop to display all records
+        print("%10s"%row[0],"%20s"%row[1],"%20s"%row[2],"%15s"%row[3])
+        
+        print("\n########################## BOOK DETAILS #############################")
+        K=input("\n\nPress any key to continue")
+        con1.close()                    #Close connection object
+        cursor1.close()#Close cursor object
